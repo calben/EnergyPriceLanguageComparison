@@ -1,0 +1,22 @@
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+description = ""
+name = "energy-prices"
+packages = [{include = "energy_prices"}]
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+pandas = "^1.5.2"
+python = "^3.9"
+typer = "^0.7.0"
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^23.1a1", allow-prereleases = true}
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.poetry.scripts]
+app = "energy_prices.app:app"
