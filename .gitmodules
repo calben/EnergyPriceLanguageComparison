@@ -1,0 +1,12 @@
+[submodule "Cpp/include/bernedom/SI"]
+	path = Cpp/include/bernedom/SI
+	url = https://github.com/bernedom/SI
+[submodule "Cpp/include/nlohmann/json"]
+	path = Cpp/include/nlohmann/json
+	url = https://github.com/nlohmann/json
+[submodule "Cpp/include/p-ranav/argparse"]
+	path = Cpp/include/p-ranav/argparse
+	url = https://github.com/p-ranav/argparse
+[submodule "Cpp/include/aantron/better-enums"]
+	path = Cpp/include/aantron/better-enums
+	url = http://github.com/aantron/better-enums

@@ -1,5 +1,15 @@
 ﻿#include "EnergyPriceCalculations.h"
 
+#include "../include/p-ranav/argparse/include/argparse/argparse.hpp"
+#include "../include/nlohmann/json/single_include/nlohmann/json.hpp"
+
+#include <chrono>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+
 auto
 get_energy_generation_from_csv(std::filesystem::path path)
 {
@@ -49,11 +59,23 @@ get_mean_generation_per_province(const std::vector<energy_generation> &data)
 }
 
 int
-main()
+main(int argc, char *argv[])
 {
-    std::filesystem::path root{"C:/Projects/Code/EnergyPriceCalculations"};
+    argparse::ArgumentParser program("EnergyPriceCalculations");
+    program.add_argument("input_directory")
+        .help("Directory in which to search for energy production CSV files.")
+        .required();
+    program.add_argument("output_json").help("Path to which to output the json with results and timings.").required();
+    try {
+        program.parse_args(argc, argv);
+    } catch (const std::runtime_error &err) {
+        std::cerr << err.what() << std::endl;
+        std::cerr << program;
+        std::exit(1);
+    }
     nlohmann::json summary;
-    for (const auto &path : std::filesystem::directory_iterator(root / "Dataset")) {
+    for (const auto &path :
+         std::filesystem::directory_iterator(std::filesystem::path(program.get<std::string>("input_directory")))) {
         if (path.is_regular_file() && path.path().filename().string().starts_with("production")) {
             const auto io_start = std::chrono::steady_clock::now();
             const auto data = get_energy_generation_from_csv(path);
@@ -71,7 +93,7 @@ main()
             summary[path.path().filename().string()] = j;
         }
     }
-    std::ofstream ofs{root / "Results/cpp.json"};
+    std::ofstream ofs{program.get<std::string>("output_json")};
     ofs << summary;
     return 0;
 }

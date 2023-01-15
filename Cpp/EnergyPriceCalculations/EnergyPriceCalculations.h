@@ -1,20 +1,10 @@
 ﻿#pragma once
 
-#include "C:\Projects\Code\nlohmann\json\single_include\nlohmann\json.hpp"
-#include "C:\Projects\Code\bernedom\SI\include\SI\energy.h"
-
-#include "enum.hpp"
-
-#include <iostream>
-#include <chrono>
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <unordered_map>
-
+#include "../include/nlohmann/json/single_include/nlohmann/json_fwd.hpp"
+#include "../include/bernedom/SI/include/SI/energy.h"
+#include "../include/aantron/better-enums/enum.h"
 #define __STDC_FORMAT_MACROS
-#include <inttypes.h>
+#include <inttypes.h> 
 
 BETTER_ENUM(Province, uint8_t, Ontario, Quebec, NovaScotia, NewBrunswick, BritishColumbia);
 
